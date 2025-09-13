@@ -1,0 +1,31 @@
+# ZARA WEB LOGIN İŞLEMLERİ
+============================
+* "https://www.zara.com/tr/" linkine gidilir ve sayfa yüklenene kadar beklenir
+* "//button[text()='Tüm çerezleri kabul et']" xpath'li element görünene kadar bekleyip tıklanır
+* "//a[contains(text(),'GİRİŞ YAP')]" xpath'li element görünene kadar bekleyip tıklanır
+* "//input[@id='zds-:r5:']" xpath'li elemente "test@reytigo.com" yazılır
+* "//input[@id='zds-:r8:']" xpath'li elemente "Test123456" yazılır
+* "//button[@role='button']" xpath'li elemente tıklanır
+* "3" saniye beklenir
+
+# Sorting Islemleri
+----------------
+* "//button[@aria-label='Menüyü aç']//*[name()='svg']" xpath'li elemente tıklanır
+* "//span[@class='layout-categories-category-wrapper layout-categories-category-level-1__content']//span[@class='layout-categories-category-name'][normalize-space()='ERKEK']" xpath'li element görünene kadar bekleyip tıklanır
+* "//span[normalize-space()='TÜMÜNÜ GÖR']" xpath'li element görünene kadar bekleyip tıklanır
+* "3" saniye beklenir
+* "//span[@class='layout-header-action-search__content']" xpath'li elemente tıklanır
+* "3" saniye beklenir
+
+
+* "1" satır "1" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
+* "3" saniye beklenir
+* "//input[@id='search-home-form-combo-input']" xpath'li field temizlenir
+* "1" saniye beklenir
+* "//input[@id='search-home-form-combo-input']" xpath'li elemente tıklanır
+* "1" saniye beklenir
+* "1" satır "2" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
+* "10" saniye beklenir
+
+
+

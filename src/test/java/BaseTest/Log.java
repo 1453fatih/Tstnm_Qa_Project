@@ -1,0 +1,38 @@
+package BaseTest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import BaseTest.*;
+
+public class Log extends BaseTest {
+    //Initialize Log4j instance
+    private static final Logger Log = LogManager.getLogger(Log.class);
+
+    //Info Level Logs
+    public static void info(String message) {
+        Log.info(message);
+    }
+
+    //Warn Level Logs
+    public static void warn(String message) {
+        Log.warn(message);
+    }
+
+    //Error Level Logs
+    public static String error(String message) {
+        Log.error(message);
+        return message;
+    }
+
+    //Fatal Level Logs
+    public static void fatal(String message) {
+        Log.fatal(message);
+    }
+
+    //Debug Level Logs
+    public static void debug(String message) {
+        Log.debug(message);
+    }
+
+
+}
