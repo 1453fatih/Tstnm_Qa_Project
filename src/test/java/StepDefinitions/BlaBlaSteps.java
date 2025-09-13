@@ -15,12 +15,13 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 import static BaseTest.BaseTest.LogCountManager;
 import static BaseTest.BaseTest.driver;
+import static org.reflections.Reflections.log;
 
 public class BlaBlaSteps {
 
@@ -58,5 +59,48 @@ public class BlaBlaSteps {
             LogCountManager(xpath);
         }
     }
+
+    @Step("<urunAciklamaXpath> ve <tutarXpath> bilgileri verilen klasöre txt olarak kaydedilir")
+    public void saveTextFromXpaths(String urunAciklamaXpath, String tutarXpath) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            WebElement urunAciklamaElement = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath(urunAciklamaXpath)));
+            WebElement tutarElement = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath(tutarXpath)));
+
+            String urunAciklama = urunAciklamaElement.getText().trim();
+            String tutar = tutarElement.getText().trim();
+
+            log.info("Ürün ve tutar bilgisi alındı.");
+
+            // Dosya yolu
+            System.out.println("test1");
+            String klasorYolu = "files"; // burayı kendine göre değiştir
+            File klasor = new File(klasorYolu);
+            if (!klasor.exists()) {
+                klasor.mkdirs();
+            }
+            System.out.println("test2");
+            // Benzersiz dosya adı
+            String dosyaAdi = "urunBilgisi_" + System.currentTimeMillis() + ".txt";
+            File dosya = new File(klasor, dosyaAdi);
+            System.out.println("test3");
+            try (BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(new FileOutputStream(dosya), StandardCharsets.UTF_8))) {
+                writer.write("Ürün Açıklaması: " + urunAciklama);
+                writer.newLine();
+                writer.write("Tutar: " + tutar);
+            }
+
+            log.info("Ürün açıklaması ve tutar başarıyla kaydedildi: " + dosya.getAbsolutePath());
+
+        } catch (Exception e) {
+            log.error("Xpathlerden veri alınıp txt dosyasına kaydedilirken hata oluştu !!! " + e.getMessage());
+            org.junit.Assert.fail("Senaryoda Hata Alındı");
+        }
+    }
+
 
 }

@@ -15,6 +15,7 @@ import java.time.Duration;
 
 import static java.lang.Thread.sleep;
 import static StepDefinitions.WaitSteps.*;
+import static org.reflections.Reflections.log;
 
 public class SendkeysSteps extends BaseTest {
 
@@ -87,13 +88,48 @@ public class SendkeysSteps extends BaseTest {
     }
 
 
+    @Step("Enter tuşuna basılır")
+    public void pressEnterKey() {
+        try {
+            WebElement activeElement = driver.switchTo().activeElement();
+            activeElement.sendKeys(Keys.ENTER);
+            log.info("Klavyeden Enter tuşuna basıldı.");
+        } catch (Exception e) {
+            log.error("Enter tuşuna basılırken hata oluştu !!! " + e.getMessage());
+            org.junit.Assert.fail("Senaryoda Hata Alındı");
+        }
+    }
 
 
 
 
 
+        @Step("<xpath> alanındaki yazılar silinene kadar Backspace tuşuna basılır")
+        public void clearTextByBackspace(String xpath) {
+            try {
+                WebElement element = driver.findElement(By.xpath(xpath));
+                String value = element.getAttribute("value");
 
+                while (value != null && !value.isEmpty()) {
+                    element.sendKeys(Keys.BACK_SPACE);
+                    Thread.sleep(50); // çok hızlı olmaması için küçük bekleme
+                    value = element.getAttribute("value");
+                }
 
+                log.info(xpath + " alanındaki tüm yazılar Backspace ile temizlendi.");
+            } catch (Exception e) {
+                log.error("Text alanını Backspace ile temizlerken hata oluştu !!! " + e.getMessage());
+                org.junit.Assert.fail("Senaryoda Hata Alındı");
+            }
+        }
 
 
 }
+
+
+
+
+
+
+
+

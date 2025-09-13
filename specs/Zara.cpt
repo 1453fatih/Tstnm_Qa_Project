@@ -20,12 +20,24 @@
 
 * "1" satır "1" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
 * "3" saniye beklenir
-* "//input[@id='search-home-form-combo-input']" xpath'li field temizlenir
+* "//*[@type='search']" xpath'li field temizlenir
 * "1" saniye beklenir
 * "//input[@id='search-home-form-combo-input']" xpath'li elemente tıklanır
 * "1" saniye beklenir
-* "1" satır "2" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
-* "10" saniye beklenir
 
+* "//input[@id='search-home-form-combo-input']" xpath'li elemente " " yazılır
+* "3" saniye beklenir
+
+* "//input[@id='search-home-form-combo-input']" alanındaki yazılar silinene kadar Backspace tuşuna basılır
+
+* "3" saniye beklenir
+* "1" satır "2" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
+* "3" saniye beklenir
+* Enter tuşuna basılır
+* "1" saniye beklenir
+* "(//*[@data-qa-qualifier='media-image'])[2]" xpath'li element görünene kadar bekleyip tıklanır
+* "1" saniye beklenir
+* "(//*[@class='expandable-text__inner-content'])[1]" ve "(//*[@class='money-amount__main'])[1]" bilgileri verilen klasöre txt olarak kaydedilir
+* "3" saniye beklenir
 
 
