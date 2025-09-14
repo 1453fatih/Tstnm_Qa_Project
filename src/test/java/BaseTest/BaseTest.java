@@ -121,35 +121,26 @@ public class BaseTest {
 
 
             ChromeDriverService driverService = ChromeDriverService.createDefaultService();
-            // Step 4: Initialize WebDriver with options
             driver = new ChromeDriver(driverService, options);
 
-            // Step 5: Set up download behavior for Chrome
             Map<String, Object> commandParams = new HashMap<>();
             commandParams.put("cmd", "Page.setDownloadBehavior");
 
             Map<String, String> params = new HashMap<>();
-            String path = "Screenshots"; // Dosya indirilecek alan
+            String path = "Screenshots";
             params.put("behavior", "allow");
             params.put("downloadPath", path);
 
 
             commandParams.put("params", params);
-
-            // Convert the command to JSON
             ObjectMapper objectMapper = new ObjectMapper();
             HttpClient httpClient = HttpClientBuilder.create().build();
             String command = objectMapper.writeValueAsString(commandParams);
-
-            // Construct the POST request for ChromeDriver's DevTools Protocol
-
             String u = driverService.getUrl().toString() + "/session/" + driver.getSessionId() + "/chromium/send_command";
-
             HttpPost request = new HttpPost(u);
             request.addHeader("content-type", "application/json");
             request.setEntity(new StringEntity(command));
             httpClient.execute(request);
-
             // Log the screen resolution for debugging
             Log.info(" Cozunurluk ->>> " + driver.manage().window().getSize());
 

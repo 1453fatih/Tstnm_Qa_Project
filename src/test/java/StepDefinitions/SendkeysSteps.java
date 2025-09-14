@@ -2,25 +2,15 @@ package StepDefinitions;
 
 import BaseTest.*;
 import Utilities.ScreenshotHelper;
-
 import com.thoughtworks.gauge.Step;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
 import java.time.Duration;
-
-import static java.lang.Thread.sleep;
-import static StepDefinitions.WaitSteps.*;
 import static org.reflections.Reflections.log;
-
 public class SendkeysSteps extends BaseTest {
-
-
 
 
     @Step("<xpath> xpath'li field temizlenir")

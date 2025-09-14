@@ -2,7 +2,6 @@ package BaseTest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import BaseTest.*;
 
 public class Log extends BaseTest {
     //Initialize Log4j instance
