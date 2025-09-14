@@ -7,23 +7,25 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.IOException;
 import java.time.Duration;
+
 import static org.reflections.Reflections.log;
+
 public class SendkeysSteps extends BaseTest {
 
 
     @Step("<xpath> xpath'li field temizlenir")
     public void clearFieldXPathWithoutWait(String xpath) throws IOException {
-        try{
+        try {
             Log.info(" XPath'li Field'ın Temizlenmesi Basladi...");
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated (By.xpath(xpath)));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
             Log.info(" Field'in Ici Temizleniyor...");
             element.clear();
             Log.info(" Field'in Ici Temizlendi...");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             ScreenshotHelper.takeScreenShot();
             StringLogError = Log.error(" XPath'li Element Temizlenemedi !!! " + e.getMessage());
             LogCountManager(StringLogError);
@@ -31,27 +33,22 @@ public class SendkeysSteps extends BaseTest {
     }
 
     @Step("<xpath> xpath'li elemente <string> yazılır")
-    public void sendKeystoXPathWithoutWait(String xpath ,String string) throws IOException {
-        try{
+    public void sendKeystoXPathWithoutWait(String xpath, String string) throws IOException {
+        try {
             Log.info(" XPath'li Elemente String Degeri Yazdirma Islemi Basladi...");
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated (By.xpath(xpath)));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
             Log.info(" Field'in Ici Temizleniyor...");
             element.clear();
             Log.info(" Field'in Ici Temizlendi...");
             element.sendKeys(string);
-            Log.info(" Field'a "+ string + " Yazildi...");
-        }
-        catch (Exception e){
+            Log.info(" Field'a " + string + " Yazildi...");
+        } catch (Exception e) {
             ScreenshotHelper.takeScreenShot();
             StringLogError = Log.error(" XPath'li Elemente String Yazilamadi !!! " + e.getMessage());
             LogCountManager(StringLogError);
         }
     }
-
-
-
-
 
 
     @Step("<xpath> xpath'li elemente <string> Yazılamadığı Kontrol Edilir")
@@ -72,7 +69,7 @@ public class SendkeysSteps extends BaseTest {
                 StringLogError = Log.error("XPath'li Elemente String Yazılabiliyor: " + e.getMessage());
                 LogCountManager(StringLogError);
             } else {
-                Log.info(" Field'a "+ string + " Yazilamadi...");
+                Log.info(" Field'a " + string + " Yazilamadi...");
 
             }
         }
@@ -92,27 +89,24 @@ public class SendkeysSteps extends BaseTest {
     }
 
 
+    @Step("<xpath> alanındaki yazılar silinene kadar Backspace tuşuna basılır")
+    public void clearTextByBackspace(String xpath) {
+        try {
+            WebElement element = driver.findElement(By.xpath(xpath));
+            String value = element.getAttribute("value");
 
-
-
-        @Step("<xpath> alanındaki yazılar silinene kadar Backspace tuşuna basılır")
-        public void clearTextByBackspace(String xpath) {
-            try {
-                WebElement element = driver.findElement(By.xpath(xpath));
-                String value = element.getAttribute("value");
-
-                while (value != null && !value.isEmpty()) {
-                    element.sendKeys(Keys.BACK_SPACE);
-                    Thread.sleep(50); // çok hızlı olmaması için küçük bekleme
-                    value = element.getAttribute("value");
-                }
-
-                log.info(xpath + " alanındaki tüm yazılar Backspace ile temizlendi.");
-            } catch (Exception e) {
-                log.error("Text alanını Backspace ile temizlerken hata oluştu !!! " + e.getMessage());
-                org.junit.Assert.fail("Senaryoda Hata Alındı");
+            while (value != null && !value.isEmpty()) {
+                element.sendKeys(Keys.BACK_SPACE);
+                Thread.sleep(50); // çok hızlı olmaması için küçük bekleme
+                value = element.getAttribute("value");
             }
+
+            log.info(xpath + " alanındaki tüm yazılar Backspace ile temizlendi.");
+        } catch (Exception e) {
+            log.error("Text alanını Backspace ile temizlerken hata oluştu !!! " + e.getMessage());
+            org.junit.Assert.fail("Senaryoda Hata Alındı");
         }
+    }
 
 
     @Step("<xpath> xpathindeki text içerisinde <arananText> yazdığı görülür")
@@ -129,7 +123,7 @@ public class SendkeysSteps extends BaseTest {
                 log.info(" Text içerisinde aranan ifade bulundu: " + arananText);
             } else {
                 log.error(" eklenen ifade bulunamadı! Beklenen: " + arananText + " | Gerçek: " + actualText);
-                Assert.fail(" Senaryoda Hata Alındı - Text içerisinde '" + arananText + "' yok! gelen text = " +actualText);
+                Assert.fail(" Senaryoda Hata Alındı - Text içerisinde '" + arananText + "' yok! gelen text = " + actualText);
             }
         } catch (Exception e) {
             log.error("Text kontrol adımında hata oluştu !!! " + e.getMessage());

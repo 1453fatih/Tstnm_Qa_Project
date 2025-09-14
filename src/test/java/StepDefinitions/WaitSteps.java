@@ -1,18 +1,19 @@
 package StepDefinitions;
+
 import Utilities.*;
 import BaseTest.*;
 import com.thoughtworks.gauge.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.IOException;
 import java.time.Duration;
+
 import static java.lang.Thread.sleep;
 
 
 public class WaitSteps extends BaseTest {
-
-
 
 
     public static void waitForPageLoad(WebDriver driver) throws InterruptedException {
@@ -22,12 +23,12 @@ public class WaitSteps extends BaseTest {
             (new WebDriverWait(driver, Duration.ofSeconds(10)))
                     .until(new ExpectedCondition<Boolean>() {
                         public Boolean apply(WebDriver driver) {
-                            return  ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                            return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
                         }
                     });
         } catch (TimeoutException ex) {
             Log.info(" Sayfa Yuklenene Kadar Bekle Fonksiyonda Hata Alindi !!!");
-            ((JavascriptExecutor)driver).executeScript("window.stop();");
+            ((JavascriptExecutor) driver).executeScript("window.stop();");
             sleep(500);
         }
     }

@@ -23,13 +23,11 @@ public class ScreenshotHelper extends BaseTest {
             getScreenShot(screenshot);
 
 
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             StringLogError = Log.error(" Ekran Goruntusu Alinamadi !!! " + e.getMessage());
             LogCountManager(StringLogError);
         }
     }
-
 
 
     // ScreenShots temizleme işlemi her koşum öncesinde çalışıyor ve buradan yönetiliyor
@@ -52,8 +50,7 @@ public class ScreenshotHelper extends BaseTest {
                     Log.info("Toplam Silinen Ekran Görüntüsü Sayısı:" + imageCount);
                 }
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.info("Dizin Mevcut Degil Veya Bir Dizin Degil." + e.getMessage());
         }
     }

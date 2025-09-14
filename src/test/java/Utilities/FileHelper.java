@@ -27,8 +27,7 @@ public class FileHelper extends BaseTest {
             }
             FilePath = file.getAbsolutePath();
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             FileHelper.FilePath = null;
             Log.info(" Dosya Path'î Sifirlandi");
             sendErrorMessageAndTakeScreenShot(" Dosyayı Ekleme Adiminda Hata Alindi " + e.getMessage());

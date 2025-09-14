@@ -1,9 +1,11 @@
 package Utilities;
 
 import BaseTest.Log;
+
 import java.io.IOException;
 
 import static BaseTest.BaseTest.LogCountManager;
+
 public class ErrorHelpers {
 
     public static void sendErrorMessageAndTakeScreenShot(String errorMessage) throws IOException {
@@ -12,13 +14,7 @@ public class ErrorHelpers {
         LogCountManager(StringLogError);
 
 
-
     }
-
-
-
-
-
 
 
 }

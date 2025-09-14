@@ -9,7 +9,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
@@ -21,7 +20,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Comparator;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -61,8 +59,7 @@ public class BlaBlaSteps {
 
             Log.info(" " + row + ". satır " + col + ". sütundaki değer [" + cellValue +
                     "] " + xpath + " xpath'li elemente başarıyla yazıldı...");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             ScreenshotHelper.takeScreenShot();
             xpath = Log.error(" Excel'den veri okunup Xpath'li elemente yazma adımında hata alındı !!! " + e.getMessage());
             LogCountManager(xpath);
@@ -175,7 +172,6 @@ public class BlaBlaSteps {
     }
 
 
-
     @Step("<xpath> xpathine kadar scroll edilir")
     public void scrollToElement(String xpath) {
         try {
@@ -191,8 +187,6 @@ public class BlaBlaSteps {
             Assert.fail("Senaryoda Hata Alındı");
         }
     }
-
-
 
 
 }
