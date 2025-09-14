@@ -10,26 +10,24 @@
 
 # Sorting Islemleri
 ----------------
+* "https://www.zara.com/tr/" linkine gidilir ve sayfa yüklenene kadar beklenir
+* "//button[text()='Tüm çerezleri kabul et']" xpath'li element görünene kadar bekleyip tıklanır
 * "//button[@aria-label='Menüyü aç']//*[name()='svg']" xpath'li elemente tıklanır
 * "//span[@class='layout-categories-category-wrapper layout-categories-category-level-1__content']//span[@class='layout-categories-category-name'][normalize-space()='ERKEK']" xpath'li element görünene kadar bekleyip tıklanır
+* "3" saniye beklenir
 * "//span[normalize-space()='TÜMÜNÜ GÖR']" xpath'li element görünene kadar bekleyip tıklanır
 * "3" saniye beklenir
 * "//span[@class='layout-header-action-search__content']" xpath'li elemente tıklanır
 * "3" saniye beklenir
-
-
 * "1" satır "1" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
 * "3" saniye beklenir
 * "//*[@type='search']" xpath'li field temizlenir
 * "1" saniye beklenir
 * "//input[@id='search-home-form-combo-input']" xpath'li elemente tıklanır
 * "1" saniye beklenir
-
 * "//input[@id='search-home-form-combo-input']" xpath'li elemente " " yazılır
 * "3" saniye beklenir
-
 * "//input[@id='search-home-form-combo-input']" alanındaki yazılar silinene kadar Backspace tuşuna basılır
-
 * "3" saniye beklenir
 * "1" satır "2" sütunundaki excel verisini "//input[@id='search-home-form-combo-input']" xpath'li elemente yaz
 * "3" saniye beklenir
@@ -39,5 +37,25 @@
 * "1" saniye beklenir
 * "(//*[@class='expandable-text__inner-content'])[1]" ve "(//*[@class='money-amount__main'])[1]" bilgileri verilen klasöre txt olarak kaydedilir
 * "3" saniye beklenir
-
-
+* "//button[@data-qa-action='add-to-cart']" xpath'li elemente tıklanır
+* "3" saniye beklenir
+* "(//*[@data-qa-qualifier='size-selector-sizes-size-label'])[1]" xpath'li elemente tıklanır
+* "3" saniye beklenir
+//* "(//*[@data-qa-id='zds-alert-dialog-cancel-button'])[1]" xpath'li elemente tıklanır
+//* "3" saniye beklenir
+* "//span[contains(text(),'Alışveriş sepetini gör')]" xpath'li elemente tıklanır
+* "3" saniye beklenir
+* "(//*[@class='money-amount__main'])[1]" xpathinden alınan fiyat txt dosyasındaki fiyat ile karşılaştırılır
+* "3" saniye beklenir
+* "(//*[@data-qa-id='add-order-item-unit'])[1]" xpathine kadar scroll edilir
+* "3" saniye beklenir
+* "(//*[@data-qa-id='add-order-item-unit'])[1]" xpath'li elemente tıklanır
+* "5" saniye beklenir
+//* "(//*[@value='2'])" xpathindeki text içerisinde "2" yazdığı görülür
+* "//*[@value='2']" xpath'li element görünene kadar bekleyip tıklanır
+* "3" saniye beklenir
+* "//span[normalize-space()='Sepet']" xpathine kadar scroll edilir
+* "3" saniye beklenir
+* "//*[@aria-label='Ürünü sil']" xpath'li elemente tıklanır
+* "3" saniye beklenir
+* "//*[@class='zds-empty-state__title']" xpathindeki text içerisinde "SEPETİNİZ BOŞ" yazdığı görülür

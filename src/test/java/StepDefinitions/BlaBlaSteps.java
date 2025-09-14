@@ -3,7 +3,9 @@ package StepDefinitions;
 import BaseTest.Log;
 import Utilities.ScreenshotHelper;
 import com.thoughtworks.gauge.Step;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,6 +16,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,6 +32,8 @@ import static org.reflections.Reflections.log;
 
 public class BlaBlaSteps {
 
+
+    //Excel'den Veri Almak İçin
     @Step("<row> satır <col> sütunundaki excel verisini <xpath> xpath'li elemente yaz")
     public void writeExcelDataToXpath(int row, int col, String xpath) throws IOException {
         try {
@@ -60,6 +69,7 @@ public class BlaBlaSteps {
         }
     }
 
+    //Ürün Bilgileri TXT Olarak Kayıt Edilir
     @Step("<urunAciklamaXpath> ve <tutarXpath> bilgileri verilen klasöre txt olarak kaydedilir")
     public void saveTextFromXpaths(String urunAciklamaXpath, String tutarXpath) {
         try {
@@ -101,6 +111,88 @@ public class BlaBlaSteps {
             org.junit.Assert.fail("Senaryoda Hata Alındı");
         }
     }
+
+
+    @Step("<fiyatXpath> xpathinden alınan fiyat txt dosyasındaki fiyat ile karşılaştırılır")
+    public void comparePriceWithTxt(String fiyatXpath) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement fiyatElement = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath(fiyatXpath)));
+
+            String siteFiyat = fiyatElement.getText().trim();
+            log.info("Siteden okunan fiyat: " + siteFiyat);
+
+            // Daha önce kaydedilen son dosyayı bul (Kayitlar klasörü)
+            String klasorYolu = "files"; // senin path
+            File klasor = new File(klasorYolu);
+            File[] dosyalar = klasor.listFiles((dir, name) -> name.startsWith("urunBilgisi_") && name.endsWith(".txt"));
+
+            if (dosyalar == null || dosyalar.length == 0) {
+                log.error("Klasörde hiç fiyat dosyası bulunamadı!");
+                Assert.fail("Karşılaştırma için txt dosyası yok.");
+                return;
+            }
+
+            // En son kaydedilen dosyayı al
+            File sonDosya = Arrays.stream(dosyalar)
+                    .max(Comparator.comparingLong(File::lastModified))
+                    .orElseThrow();
+
+            log.info("Karşılaştırma yapılan dosya: " + sonDosya.getAbsolutePath());
+
+            String kayitliFiyat = null;
+            try (BufferedReader reader = new BufferedReader(new FileReader(sonDosya))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("Tutar:")) {
+                        kayitliFiyat = line.replace("Tutar:", "").trim();
+                        break;
+                    }
+                }
+            }
+
+            if (kayitliFiyat == null) {
+                log.error("Txt dosyasında 'Tutar:' satırı bulunamadı!");
+                Assert.fail("Dosyada tutar bilgisi yok.");
+                return;
+            }
+
+            log.info("Txt dosyasından okunan fiyat: " + kayitliFiyat);
+
+            // Karşılaştırma
+            if (siteFiyat.equals(kayitliFiyat)) {
+                log.info(" Fiyatlar aynıdır. (" + siteFiyat + ")");
+            } else {
+                log.error(" Fiyatlar farklı! Site: " + siteFiyat + " | Txt: " + kayitliFiyat);
+                Assert.fail("Senaryoda Hata Alındı - Fiyatlar uyuşmuyor.");
+            }
+
+        } catch (Exception e) {
+            log.error("Fiyat karşılaştırma adımında hata oluştu !!! " + e.getMessage());
+            Assert.fail("Senaryoda Hata Alındı");
+        }
+    }
+
+
+
+    @Step("<xpath> xpathine kadar scroll edilir")
+    public void scrollToElement(String xpath) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement element = wait.until(
+                    ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+            log.info(" " + xpath + " xpath'ine kadar scroll edildi.");
+        } catch (Exception e) {
+            log.error("Scroll adımında hata oluştu !!! " + e.getMessage());
+            Assert.fail("Senaryoda Hata Alındı");
+        }
+    }
+
+
 
 
 }

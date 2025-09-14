@@ -118,7 +118,7 @@ public class BaseTest {
             options.addArguments("--disable-extensions");
             options.addArguments("start-maximized");
             //options.addArguments("--window-size=2524,1094");
-            options.addArguments("--lang=tr");
+
 
             ChromeDriverService driverService = ChromeDriverService.createDefaultService();
             // Step 4: Initialize WebDriver with options

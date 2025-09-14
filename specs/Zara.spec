@@ -3,7 +3,7 @@
 
 ZARA Login ve Sıralama Islemleri
 ----------------
-* ZARA WEB LOGIN İŞLEMLERİ
+//* ZARA WEB LOGIN İŞLEMLERİ
 * Sorting Islemleri
 
 

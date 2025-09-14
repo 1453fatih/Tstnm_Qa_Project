@@ -4,6 +4,7 @@ import BaseTest.*;
 import Utilities.ScreenshotHelper;
 
 import com.thoughtworks.gauge.Step;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -122,6 +123,29 @@ public class SendkeysSteps extends BaseTest {
                 org.junit.Assert.fail("Senaryoda Hata Alındı");
             }
         }
+
+
+    @Step("<xpath> xpathindeki text içerisinde <arananText> yazdığı görülür")
+    public void verifyTextContains(String xpath, String arananText) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement element = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
+            String actualText = element.getText().trim();
+            log.info("Elementten okunan text: " + actualText);
+
+            if (actualText.contains(arananText)) {
+                log.info(" Text içerisinde aranan ifade bulundu: " + arananText);
+            } else {
+                log.error(" eklenen ifade bulunamadı! Beklenen: " + arananText + " | Gerçek: " + actualText);
+                Assert.fail(" Senaryoda Hata Alındı - Text içerisinde '" + arananText + "' yok! gelen text = " +actualText);
+            }
+        } catch (Exception e) {
+            log.error("Text kontrol adımında hata oluştu !!! " + e.getMessage());
+            Assert.fail("Senaryoda Hata Alındı");
+        }
+    }
 
 
 }
